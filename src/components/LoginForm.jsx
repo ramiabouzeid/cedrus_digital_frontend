@@ -21,7 +21,6 @@ const LoginForm = () => {
     } = useForm();
 
     const onSubmit = async (values) => {
-        console.log(values);
         setForm(values);
         let api = '/users';
         let method = 'GET';
@@ -31,6 +30,8 @@ const LoginForm = () => {
           });
           if(matching_users.length>0){
             setRedirect(true);
+          }else{
+            
           }
         });
     };
@@ -47,8 +48,8 @@ const LoginForm = () => {
             noValidate
             autoComplete="off"
         >
-                <div>
                 <Typography variant="h2">Login</Typography>
+                <div>
                 <Controller
                   name="email"
                   control={control}

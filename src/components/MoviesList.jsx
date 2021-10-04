@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
-import {Grid, AppBar, Toolbar, Typography} from '@mui/material';
+import {Grid, Typography} from '@mui/material';
 import MovieItem from './MovieItem';
 import { call_server } from '../utils/api';
 
@@ -12,21 +12,16 @@ const MoviesList = () => {
     useEffect(() => {
         call_server(method, api).then(data => {
             //response.json({ message: 'Request received!', data })
-            console.log({'aadsa':data});
             setMovies(data);
           });
     }, []);
 
     return (
         <div>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <Typography variant="h6" color="inherit" component="div">Movies</Typography>
-                </Toolbar>
-            </AppBar>
+            <Typography variant="h2">Movies</Typography>
             <Grid container spacing={2}>
                 {movies.map(function(item, i){
-                    return <MovieItem movie={item} />
+                    return <MovieItem movie={item} key={i} />
                 })}
             </Grid>
         </div>

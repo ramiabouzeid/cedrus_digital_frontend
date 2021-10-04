@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import { FormControl, TextField, Box, Button } from '@mui/material';
+import { Typography, TextField, Box, Button } from '@mui/material';
 import { call_server } from '../utils/api';
 import { useForm, Controller } from "react-hook-form";
 
@@ -13,8 +13,7 @@ const RegisterForm = () => {
     });
 
     const {
-        register,
-        formState: { errors },
+       formState: { errors },
         handleSubmit,
         control,
     } = useForm();
@@ -27,7 +26,6 @@ const RegisterForm = () => {
         let data = values;
         call_server(method, api, data).then(data => {
           //response.json({ message: 'Request received!', data })
-          console.log({'aadsa':data});
         });
     };
 
@@ -36,12 +34,14 @@ const RegisterForm = () => {
     <Box
         component="form"
         sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': { m: 1, width: '650px' },
         }}
+        style={{"max-width":"650px", "margin": "0 auto"}}
         noValidate
         autoComplete="off"
     >
-        
+            <Typography variant="h2">Create a movie</Typography>
+            <div>
             <Controller
               name="name"
               control={control}
@@ -54,12 +54,14 @@ const RegisterForm = () => {
                   variant="outlined"
                   placeholder="Full Name"
                   value={value}
-                  fullWidth
+                  style={{"width": "100%","margin-right":0,"margin-left":0}}
                   onChange={onChange}
                   error={!!error}
                 />
               )}
             />
+            </div>
+            <div>
             <Controller
               name="description"
               control={control}
@@ -72,12 +74,14 @@ const RegisterForm = () => {
                   variant="outlined"
                   placeholder="Email"
                   value={value}
-                  fullWidth
+                  style={{"width": "100%","margin-right":0,"margin-left":0}}
                   onChange={onChange}
                   error={!!error}
                 />
               )}
             />
+            </div>
+            <div>
             <Controller
               name="movie_id"
               control={control}
@@ -90,18 +94,16 @@ const RegisterForm = () => {
                   variant="outlined"
                   placeholder="Password"
                   value={value}
-                  fullWidth
+                  style={{"width": "100%","margin-right":0,"margin-left":0}}
                   onChange={onChange}
                   error={!!error}
                 />
               )}
             />
-
-            {/* <TextField id="email" label="Email" variant="outlined" onChange={onChange} /> */}
-            {/* <TextField id="password" label="Password" variant="outlined" type="password" /> */}
+            </div>
             <Button fullWidth variant="contained" color="primary" type="submit"
               onClick={handleSubmit(onSubmit)}>
-                login
+                Create
             </Button>
         
     </Box>

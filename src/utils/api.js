@@ -7,12 +7,10 @@ export async function call_server(method, api, data) {
 }
 
 export async function login_user(data) {
-    console.log(data);
     let api = '/users';
     return (await call_server('get', api));
 }
 export async function register_user(data) {
-    console.log(data);
     let api = '/users';
     return (await call_server('post', api, data));
 }
