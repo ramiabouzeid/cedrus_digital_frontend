@@ -3,13 +3,14 @@ import { useState } from "react";
 import { Typography, TextField, Box, Button } from '@mui/material';
 import { call_server } from '../utils/api';
 import { useForm, Controller } from "react-hook-form";
+import { Redirect } from "react-router-dom";
 
 const RegisterForm = () => {
 
     const [form, setForm] = useState({
-        email: "",
-        password: false,
-        fullname: ''
+        title: "",
+        description: false,
+        youtube_id: ''
     });
 
     const {
@@ -18,13 +19,20 @@ const RegisterForm = () => {
         control,
     } = useForm();
 
+    const initialToken = localStorage.getItem("tokens");
+    if((initialToken && initialToken === 'null') || !initialToken){
+      return (
+        <Redirect to='/login' />
+      )
+    }
+
 
     const onSubmit = async (values) => {
         setForm(values);
         let api = '/movies';
         let method = 'POST';
         let data = values;
-        call_server(method, api, data).then(data => {
+        call_server(method, api, data, true).then(data => {
           //response.json({ message: 'Request received!', data })
         });
     };
@@ -36,14 +44,14 @@ const RegisterForm = () => {
         sx={{
         '& .MuiTextField-root': { m: 1, width: '650px' },
         }}
-        style={{"max-width":"650px", "margin": "0 auto"}}
+        style={{"maxWidth":"650px", "margin": "0 auto"}}
         noValidate
         autoComplete="off"
     >
             <Typography variant="h2">Create a movie</Typography>
             <div>
             <Controller
-              name="name"
+              name="title"
               control={control}
               defaultValue=""
               render={({
@@ -52,9 +60,9 @@ const RegisterForm = () => {
               }) => (
                 <TextField
                   variant="outlined"
-                  placeholder="Full Name"
+                  placeholder="Movie Name"
                   value={value}
-                  style={{"width": "100%","margin-right":0,"margin-left":0}}
+                  style={{"width": "100%","marginRight":0,"marginLeft":0}}
                   onChange={onChange}
                   error={!!error}
                 />
@@ -72,9 +80,9 @@ const RegisterForm = () => {
               }) => (
                 <TextField
                   variant="outlined"
-                  placeholder="Email"
+                  placeholder="Description"
                   value={value}
-                  style={{"width": "100%","margin-right":0,"margin-left":0}}
+                  style={{"width": "100%","marginRight":0,"marginLeft":0}}
                   onChange={onChange}
                   error={!!error}
                 />
@@ -83,7 +91,7 @@ const RegisterForm = () => {
             </div>
             <div>
             <Controller
-              name="movie_id"
+              name="youtube_id"
               control={control}
               defaultValue=""
               render={({
@@ -92,9 +100,9 @@ const RegisterForm = () => {
               }) => (
                 <TextField
                   variant="outlined"
-                  placeholder="Password"
+                  placeholder="Movie Id"
                   value={value}
-                  style={{"width": "100%","margin-right":0,"margin-left":0}}
+                  style={{"width": "100%","marginRight":0,"marginLeft":0}}
                   onChange={onChange}
                   error={!!error}
                 />

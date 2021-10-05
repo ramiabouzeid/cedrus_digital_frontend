@@ -32,3 +32,9 @@ A create movie form [http://localhost:3000/createMovie](http://localhost:3000/cr
 
 ## Apis
 I used crudcrud.com which is a paid service, where I am creating users and logging them in, in case the data fails to load please do contact me to extend the plan
+
+## Remarks
+### Git
+I usually work on a feature branch with the ticket number, and after finishing it I create a pull request to be reviewed and then merged on dev, this was not done currently due to the lack of time
+### Api
+I had an issue with the api which took me a while to fix which needed a subscription and a payment

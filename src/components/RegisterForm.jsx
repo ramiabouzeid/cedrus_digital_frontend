@@ -12,7 +12,8 @@ const RegisterForm = () => {
     const [form, setForm] = useState({
         email: "",
         password: false,
-        fullname: ''
+        password_confirmation: false,
+        name: ''
     });
 
     const {
@@ -25,10 +26,11 @@ const RegisterForm = () => {
 
     const onSubmit = async (values) => {
         setForm(values);
-        let api = '/users';
+        let api = '/auth/register';
         let method = 'POST';
         let data = values;
         call_server(method, api, data).then(data => {
+          console.log(data);
           setRedirect(true);
           //response.json({ message: 'Request received!', data })
         });
@@ -42,14 +44,14 @@ const RegisterForm = () => {
           sx={{
           '& .MuiTextField-root': { m: 1, width: '650px' },
           }}
-          style={{"max-width":"650px", "margin": "0 auto"}}
+          style={{"maxWidth":"650px", "margin": "0 auto"}}
           noValidate
           autoComplete="off"
       >
               <Typography variant="h2">Register</Typography>
               <div>
               <Controller
-                name="fullname"
+                name="name"
                 control={control}
                 defaultValue=""
                 render={({
@@ -60,7 +62,7 @@ const RegisterForm = () => {
                     variant="outlined"
                     placeholder="Full Name"
                     value={value}
-                    style={{"width": "100%","margin-right":0,"margin-left":0}}
+                    style={{"width": "100%","marginRight":0,"marginLeft":0}}
                     onChange={onChange}
                     error={!!error}
                   />
@@ -80,7 +82,7 @@ const RegisterForm = () => {
                     variant="outlined"
                     placeholder="Email"
                     value={value}
-                    style={{"width": "100%","margin-right":0,"margin-left":0}}
+                    style={{"width": "100%","marginRight":0,"marginLeft":0}}
                     onChange={onChange}
                     error={!!error}
                   />
@@ -101,7 +103,28 @@ const RegisterForm = () => {
                     type="password"
                     placeholder="Password"
                     value={value}
-                    style={{"width": "100%","margin-right":0,"margin-left":0}}
+                    style={{"width": "100%","marginRight":0,"marginLeft":0}}
+                    onChange={onChange}
+                    error={!!error}
+                  />
+                )}
+              />
+              </div>
+              <div>
+              <Controller
+                name="password_confirmation"
+                control={control}
+                defaultValue=""
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
+                  <TextField
+                    variant="outlined"
+                    type="password"
+                    placeholder="Password Confirmation"
+                    value={value}
+                    style={{"width": "100%","marginRight":0,"marginLeft":0}}
                     onChange={onChange}
                     error={!!error}
                   />
