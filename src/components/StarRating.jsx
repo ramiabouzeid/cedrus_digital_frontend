@@ -6,9 +6,9 @@ import { call_server } from '../utils/api';
 
 const StarRating = (props) => {
     const [votesArray, setVotesArray] = useState(props.votes);
+    let user = JSON.parse(localStorage.getItem("user"));
+    let user_id = user.id;
     const changeRating = (event, newRating) => {
-        let user = JSON.parse(localStorage.getItem("user"));
-        let user_id = user.id;
         let api = '/votes';
         let method = 'POST';
         let data = {
@@ -18,26 +18,34 @@ const StarRating = (props) => {
         }
         call_server(method, api, data, true).then(data => {
             setVotesArray(votesArray => [...votesArray, data]);
-            console.log(votesArray);
         });
     }
     let votes = 0;
+    let vote_by_me = false;
     for (var i = 0; i < votesArray.length; i++) {
         votes += parseFloat(votesArray[i].vote);
-        console.log(votesArray[i].vote);
+        if(votesArray[i].user_id === user_id){
+            vote_by_me = true;
+        };
     }
-    console.log('votes');
+    
     votes = votes/votesArray.length;
-    console.log(votes);
+    if(vote_by_me){
+        return (
+            <div>You already voted</div>
+        )
+    }
     return (
-        <Rating
+        <div>
+            <Rating
             name="hover-feedback"
             value={votes}
             precision={0.5}
             onChange={(event, newValue) => {
                 changeRating(newValue);
             }}
-        />
+            />
+        </div>
 
     )
 }

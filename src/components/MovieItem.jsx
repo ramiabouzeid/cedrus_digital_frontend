@@ -15,7 +15,7 @@ const MovieItem = (props) => {
                 />
                 <CardContent>
                     <div style={{"paddingBottom": "57%","position":"relative", "marginBottom":"10px"}}>
-                    <iframe width="100%" height="100%" style={{"position":"absolute", "width":"100%", "left":"0", "top":"0"}} src="https://www.youtube.com/embed/`{props.movie.youtube_id}`" title="YouTube video player" border="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <iframe width="100%" height="100%" style={{"position":"absolute", "width":"100%", "left":"0", "top":"0"}} src={`https://www.youtube.com/embed/${props.movie.youtube_id}`} title="YouTube video player" border="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
                     <Typography variant="body2" color="text.secondary">
                     {props.movie.description}
